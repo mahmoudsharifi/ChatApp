@@ -6,18 +6,28 @@ import {
   TouchableOpacity,
   View,
   ImageBackground,
+  Alert
 } from "react-native";
-
+import { getAuth, signInAnonymously } from "firebase/auth";
 
 const Start = ({ navigation }) => {
   const [text, setText] = useState("");
   const [color, setColor] = useState("");
+  const auth = getAuth();
 
   const signIn = () => {
-        navigation.navigate("Chat", {
-          name: text ? text : "User",
-          color: color ? color : "white",
-        });
+    signInAnonymously(auth)
+    .then((result) => {
+      navigation.navigate("Chat", {
+        userID: result.user.uid,
+        name: text ? text : "User",
+        color: color ? color : "white",
+      });
+      Alert.alert("Signed in successfully!");
+    })
+    .catch((error) => {
+      Alert.alert("Unable to sign in, try again later.");
+    });
 
   };
 
