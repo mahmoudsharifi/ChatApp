@@ -100,21 +100,22 @@ const CustomActions = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: 26,
-    height: 26,
+    width: 40,
+    height: 40,
     marginLeft: 10,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   wrapper: {
-    borderRadius: 13,
+    borderRadius: 25,
     borderColor: "#b2b2b2",
-    borderWidth: 2,
+    borderWidth: 1,
     flex: 1,
   },
   iconText: {
+    marginBottom: 10,
     color: "#b2b2b2",
-    fontWeight: "bold",
-    fontSize: 10,
+    fontWeight: "500",
+    fontSize: 32,
     backgroundColor: "transparent",
     textAlign: "center",
   },
