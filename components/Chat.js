@@ -9,8 +9,11 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
+import CustomActions from "./CustomActions";
+import MapView from "react-native-maps";
 
-const Chat = ({ isConnected, db, route, navigation }) => {
+
+const Chat = ({ isConnected, db, route, navigation, storage }) => {
   const { name, color, userID} = route.params;
   const [messages, setMessages] = useState([]);
 
@@ -89,14 +92,39 @@ const Chat = ({ isConnected, db, route, navigation }) => {
       }}
     />
   }
+  const renderCustomActions = (props) => {
+    return <CustomActions storage={storage} {...props} />;
+  };
+
+  const renderCustomView = (props) => {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+        <MapView
+          style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
+          region={{
+            latitude: currentMessage.location.latitude,
+            longitude: currentMessage.location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
+      );
+    }
+    return null;
+  };
+
 
   return (
     <View style={[styles.container,{backgroundColor:color}]}>
       <GiftedChat
+        style={styles.textingBox}
+        messages={messages}
         renderBubble={renderBubble}
         renderInputToolbar={renderInputToolbar}
-        messages={messages}
-        onSend={messages => onSend(messages)}
+        renderActions={renderCustomActions}
+        renderCustomView={renderCustomView}
+        onSend={(messages) => onSend(messages)}
         user={{
           _id: userID,
         }}
