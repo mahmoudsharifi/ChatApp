@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   View,
   ImageBackground,
-  Alert
+  Alert,
+  KeyboardAvoidingView
 } from "react-native";
 import { getAuth, signInAnonymously } from "firebase/auth";
 
@@ -72,6 +73,7 @@ const Start = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
+
     </ImageBackground>
   );
 };
@@ -86,16 +88,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   subContainer: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
     width: "88%",
   },
   inputContainer: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
     width: "88%",
     height: "24%",
     backgroundColor: "white",
+    opacity: 0.8,
   },
   radioButtonContainer: {
     width: "70%",
